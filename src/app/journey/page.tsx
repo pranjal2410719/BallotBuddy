@@ -32,9 +32,27 @@ export default function JourneyPage() {
         </p>
       </motion.div>
 
+      {/* Mobile Horizontal Steps Navigation */}
+      <div className="lg:hidden mb-6 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none flex gap-3 snap-x">
+        {electionSteps.map((step) => (
+          <button
+            key={step.id}
+            onClick={() => setActiveStep(step.id)}
+            className={`snap-center shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium transition-all ${
+              activeStep === step.id
+                ? "bg-blue-600 text-white border-blue-600 shadow-sm scale-105"
+                : "bg-card text-muted-foreground border-border hover:bg-accent"
+            }`}
+          >
+            <span className="text-base">{step.icon}</span>
+            <span className="whitespace-nowrap">{step.title}</span>
+          </button>
+        ))}
+      </div>
+
       <div className="grid gap-8 lg:grid-cols-3">
-        {/* Steps Sidebar */}
-        <div className="lg:col-span-1">
+        {/* Steps Sidebar (Desktop Only) */}
+        <div className="lg:col-span-1 hidden lg:block">
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">{t("nav.journey")}</CardTitle>

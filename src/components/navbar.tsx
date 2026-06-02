@@ -171,7 +171,7 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden overflow-hidden border-t"
+            className="lg:hidden overflow-y-auto max-h-[calc(100vh-4rem)] border-t"
           >
             <nav className="flex flex-col p-4 gap-1">
               {navItems.map((item) => (

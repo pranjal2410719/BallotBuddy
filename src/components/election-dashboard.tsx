@@ -289,6 +289,7 @@ export function ElectionDashboard() {
                       proOptions={{ hideAttribution: true }}
                       nodesDraggable={false}
                       nodesConnectable={false}
+                      preventScrolling={false}
                     >
                       <Background />
                       <Controls />
