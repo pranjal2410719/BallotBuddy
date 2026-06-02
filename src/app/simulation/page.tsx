@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/lib/language-context";
 import {
   CheckCircle,
   ArrowRight,
@@ -150,6 +151,7 @@ const simulationSteps: SimulationStep[] = [
 ];
 
 export default function SimulationPage() {
+  const { t } = useLanguage();
   const [started, setStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -199,14 +201,13 @@ export default function SimulationPage() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-white/60 px-4 py-1.5 text-sm font-medium backdrop-blur-sm dark:bg-gray-800/60">
             <Sparkles className="h-4 w-4 text-blue-600" />
-            Interactive Experience
+            {t("feature.simulation")}
           </div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            🗳️ Election Simulation
+            {t("simulation.title")}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Experience a mock election from start to finish. Walk through each
-            step of the democratic process and learn what happens at every stage.
+            {t("simulation.subtitle")}
           </p>
 
           <Card className="mt-10 max-w-lg mx-auto text-left">
@@ -221,7 +222,7 @@ export default function SimulationPage() {
                 ))}
               </ul>
               <Button onClick={() => setStarted(true)} className="w-full gap-2 mt-4">
-                Start Simulation
+                {t("simulation.start")}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </CardContent>
@@ -242,10 +243,9 @@ export default function SimulationPage() {
             <CardContent className="pt-8 pb-8">
               <div className="text-center space-y-6">
                 <Trophy className="h-16 w-16 mx-auto text-yellow-500" />
-                <h2 className="text-2xl font-bold">🎉 Simulation Complete!</h2>
+                <h2 className="text-2xl font-bold">{t("simulation.complete")}</h2>
                 <p className="text-muted-foreground max-w-md mx-auto">
-                  You&apos;ve successfully experienced the entire election process from
-                  registration to results!
+                  {t("simulation.completeDesc")}
                 </p>
 
                 <Card className="max-w-md mx-auto text-left">
@@ -278,7 +278,7 @@ export default function SimulationPage() {
 
                 <Button onClick={handleRestart} variant="outline" className="gap-2">
                   <RotateCcw className="h-4 w-4" />
-                  Restart Simulation
+                  {t("simulation.restart")}
                 </Button>
               </div>
             </CardContent>
@@ -297,10 +297,10 @@ export default function SimulationPage() {
         className="text-center mb-8"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          🗳️ Election Simulation
+          {t("simulation.title")}
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Experience a mock election from start to finish.
+          {t("simulation.subtitle")}
         </p>
       </motion.div>
 
@@ -308,7 +308,7 @@ export default function SimulationPage() {
       <div className="mb-6">
         <div className="flex justify-between text-sm text-muted-foreground mb-2">
           <span>
-            Step {currentStep + 1} of {simulationSteps.length}
+            {t("simulation.step")} {currentStep + 1} {t("simulation.of")} {simulationSteps.length}
           </span>
           <span>{Math.round(progress)}%</span>
         </div>
@@ -333,7 +333,7 @@ export default function SimulationPage() {
                 <div>
                   <CardTitle className="text-xl">{step.title}</CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    Step {step.id} of {simulationSteps.length}
+                    {t("simulation.step")} {step.id} {t("simulation.of")} {simulationSteps.length}
                   </p>
                 </div>
               </div>
@@ -422,14 +422,14 @@ export default function SimulationPage() {
                   className="gap-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Back
+                  {t("eligibility.back")}
                 </Button>
                 <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
                   className="gap-2"
                 >
-                  {currentStep === simulationSteps.length - 1 ? "Finish" : "Continue"}
+                  {currentStep === simulationSteps.length - 1 ? t("simulation.finish") : t("simulation.continue")}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>

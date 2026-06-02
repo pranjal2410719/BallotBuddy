@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { electionSteps } from "@/lib/election-data";
 import { ChevronRight, Check, ArrowLeft } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 export default function JourneyPage() {
-  const [activeStep, setActiveStep] = useState<number | null>(null);
+  const { t } = useLanguage();
+  const [activeStep, setActiveStep] = useState<number | null>(1);
 
   const activeStepData = activeStep !== null ? electionSteps.find((s) => s.id === activeStep) : null;
 
@@ -23,10 +25,10 @@ export default function JourneyPage() {
         className="text-center mb-12"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          🗳️ Interactive Election Journey
+          {t("journey.title")}
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Explore the complete election process step by step. Click on any stage to learn more.
+          {t("journey.subtitle")}
         </p>
       </motion.div>
 
@@ -35,7 +37,7 @@ export default function JourneyPage() {
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Election Process</CardTitle>
+              <CardTitle className="text-lg">{t("nav.journey")}</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="flex flex-col">
@@ -95,7 +97,7 @@ export default function JourneyPage() {
                     {/* What Happens */}
                     <div>
                       <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                        What Happens
+                        {t("journey.whatHappens")}
                       </h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {activeStepData.details.whatHappens}
@@ -106,7 +108,7 @@ export default function JourneyPage() {
 
                     {/* What to Expect */}
                     <div>
-                      <h3 className="font-semibold text-sm mb-2">What to Expect</h3>
+                      <h3 className="font-semibold text-sm mb-2">{t("journey.whatToExpect")}</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {activeStepData.details.whatToExpect}
                       </p>
@@ -117,7 +119,7 @@ export default function JourneyPage() {
                       <>
                         <Separator />
                         <div>
-                          <h3 className="font-semibold text-sm mb-2">What to Bring</h3>
+                          <h3 className="font-semibold text-sm mb-2">{t("journey.whatToBring")}</h3>
                           <p className="text-sm leading-relaxed text-muted-foreground">
                             {activeStepData.details.whatToBring}
                           </p>
@@ -131,7 +133,7 @@ export default function JourneyPage() {
                     <div>
                       <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
                         <Check className="h-4 w-4 text-green-600" />
-                        Do&apos;s
+                        {t("journey.dos")}
                       </h3>
                       <ul className="space-y-1.5">
                         {activeStepData.details.dos.map((item, i) => (
@@ -151,7 +153,7 @@ export default function JourneyPage() {
                     <div>
                       <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
                         <span className="text-red-600 text-sm">✕</span>
-                        Don&apos;ts
+                        {t("journey.donts")}
                       </h3>
                       <ul className="space-y-1.5">
                         {activeStepData.details.donts.map((item, i) => (
@@ -174,7 +176,7 @@ export default function JourneyPage() {
                         onClick={() => setActiveStep(activeStep! - 1)}
                       >
                         <ArrowLeft className="h-4 w-4 mr-1" />
-                        Previous
+                        {t("journey.previous")}
                       </Button>
                       <Button
                         variant="outline"
@@ -182,7 +184,7 @@ export default function JourneyPage() {
                         disabled={activeStep === electionSteps.length}
                         onClick={() => setActiveStep(activeStep! + 1)}
                       >
-                        Next
+                        {t("journey.next")}
                         <ChevronRight className="h-4 w-4 ml-1" />
                       </Button>
                     </div>
@@ -196,10 +198,9 @@ export default function JourneyPage() {
               >
                 <Card className="flex flex-col items-center justify-center py-20 text-center">
                   <span className="text-5xl mb-4">🗳️</span>
-                  <h3 className="text-xl font-semibold mb-2">Select a Step</h3>
+                  <h3 className="text-xl font-semibold mb-2">{t("journey.selectStep")}</h3>
                   <p className="text-muted-foreground max-w-md">
-                    Click on any step in the election process to learn what happens, what to bring,
-                    and important do&apos;s and don&apos;ts.
+                    {t("journey.selectStepDesc")}
                   </p>
                 </Card>
               </motion.div>

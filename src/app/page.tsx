@@ -137,15 +137,16 @@ export default function Home() {
               {t("home.features.subtitle")}
             </p>
           </motion.div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="flex flex-wrap gap-6 justify-center">
             {features.map((feature, i) => (
               <motion.div
-                key={feature.title}
+                key={feature.href}
                 custom={i}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
+                className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)]"
               >
                 <Link href={feature.href} className="block h-full">
                   <Card className="h-full transition-all hover:shadow-lg hover:-translate-y-1 border-2 hover:border-blue-200 dark:hover:border-blue-800">

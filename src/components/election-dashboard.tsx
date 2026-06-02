@@ -64,13 +64,13 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: Array<{ n
 
 // --- React Flow: Election Process ---
 const flowNodes: Node[] = [
-  { id: "1", position: { x: 250, y: 0 }, data: { label: "📝 Registration" }, type: "input", style: { background: "#DBEAFE", border: "2px solid #3B82F6", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "2", position: { x: 250, y: 100 }, data: { label: "🔍 Verification" }, style: { background: "#FEF3C7", border: "2px solid #F59E0B", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "3", position: { x: 250, y: 200 }, data: { label: "📋 Nomination" }, style: { background: "#F3E8FF", border: "2px solid #8B5CF6", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "4", position: { x: 250, y: 300 }, data: { label: "📢 Campaign" }, style: { background: "#FFE4E6", border: "2px solid #F43F5E", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "5", position: { x: 250, y: 400 }, data: { label: "🗳️ Voting Day" }, style: { background: "#D1FAE5", border: "2px solid #10B981", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "6", position: { x: 250, y: 500 }, data: { label: "🔢 Counting" }, style: { background: "#E0F2FE", border: "2px solid #0EA5E9", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
-  { id: "7", position: { x: 250, y: 600 }, data: { label: "🏆 Results" }, type: "output", style: { background: "#FEF9C3", border: "2px solid #EAB308", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "1", position: { x: 250, y: 0 }, data: { label: "📝 Registration" }, type: "input", style: { background: "#DBEAFE", border: "2px solid #3B82F6", color: "#1E3A8A", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "2", position: { x: 250, y: 100 }, data: { label: "🔍 Verification" }, style: { background: "#FEF3C7", border: "2px solid #F59E0B", color: "#78350F", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "3", position: { x: 250, y: 200 }, data: { label: "📋 Nomination" }, style: { background: "#F3E8FF", border: "2px solid #8B5CF6", color: "#5B21B6", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "4", position: { x: 250, y: 300 }, data: { label: "📢 Campaign" }, style: { background: "#FFE4E6", border: "2px solid #F43F5E", color: "#9F1239", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "5", position: { x: 250, y: 400 }, data: { label: "🗳️ Voting Day" }, style: { background: "#D1FAE5", border: "2px solid #10B981", color: "#065F46", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "6", position: { x: 250, y: 500 }, data: { label: "🔢 Counting" }, style: { background: "#E0F2FE", border: "2px solid #0EA5E9", color: "#075985", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
+  { id: "7", position: { x: 250, y: 600 }, data: { label: "🏆 Results" }, type: "output", style: { background: "#FEF9C3", border: "2px solid #EAB308", color: "#854D0E", borderRadius: "12px", padding: "12px 16px", fontWeight: 600, fontSize: "13px" } },
 ];
 
 const flowEdges: Edge[] = [

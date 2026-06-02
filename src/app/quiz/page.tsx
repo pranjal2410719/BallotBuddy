@@ -16,8 +16,10 @@ import {
   XCircle,
   Star,
 } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 export default function QuizPage() {
+  const { t } = useLanguage();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -86,7 +88,7 @@ export default function QuizPage() {
             <CardContent className="pt-8 pb-8">
               <div className="text-center space-y-6">
                 <Trophy className="h-16 w-16 mx-auto text-yellow-500" />
-                <h2 className="text-2xl font-bold">Quiz Complete!</h2>
+                <h2 className="text-2xl font-bold">{t("quiz.complete")}</h2>
                 <div className={`text-xl font-semibold ${msg.color}`}>{msg.text}</div>
 
                 {/* Score Circle */}
@@ -105,7 +107,7 @@ export default function QuizPage() {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-3xl font-bold">{score}/{quizQuestions.length}</span>
-                    <span className="text-xs text-muted-foreground">correct</span>
+                    <span className="text-xs text-muted-foreground">{t("quiz.correct")}</span>
                   </div>
                 </div>
 
@@ -117,7 +119,7 @@ export default function QuizPage() {
 
                 {/* Answer Review */}
                 <div className="text-left space-y-3">
-                  <h3 className="font-semibold text-sm">Review Your Answers</h3>
+                  <h3 className="font-semibold text-sm">{t("quiz.review")}</h3>
                   {quizQuestions.map((q, i) => (
                     <div key={q.id} className="flex items-start gap-2 text-sm">
                       {answers[i] === q.correctAnswer ? (
@@ -129,7 +131,7 @@ export default function QuizPage() {
                         <span className="font-medium">{q.question}</span>
                         {answers[i] !== q.correctAnswer && (
                           <p className="text-xs text-muted-foreground mt-0.5">
-                            Correct: {q.options[q.correctAnswer]}
+                            {t("quiz.correctAnswer")} {q.options[q.correctAnswer]}
                           </p>
                         )}
                       </div>
@@ -139,7 +141,7 @@ export default function QuizPage() {
 
                 <Button onClick={handleRestart} className="gap-2 mt-4">
                   <RotateCcw className="h-4 w-4" />
-                  Try Again
+                  {t("quiz.tryAgain")}
                 </Button>
               </div>
             </CardContent>
@@ -158,10 +160,10 @@ export default function QuizPage() {
         className="text-center mb-8"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          🎯 Election Quiz
+          {t("quiz.title")}
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Test your election knowledge and earn your Election Literacy Score.
+          {t("quiz.subtitle")}
         </p>
       </motion.div>
 
@@ -169,11 +171,11 @@ export default function QuizPage() {
       <div className="mb-6">
         <div className="flex justify-between text-sm text-muted-foreground mb-2">
           <span>
-            Question {currentQuestion + 1} of {quizQuestions.length}
+            {t("eligibility.question")} {currentQuestion + 1} {t("eligibility.of")} {quizQuestions.length}
           </span>
           <span className="flex items-center gap-1">
             <Star className="h-3 w-3 text-yellow-500" />
-            Score: {score}
+            {t("quiz.score")}: {score}
           </span>
         </div>
         <Progress value={progress} className="h-2" />
@@ -277,11 +279,11 @@ export default function QuizPage() {
                 <Button onClick={handleNext} className="w-full gap-2">
                   {currentQuestion < quizQuestions.length - 1 ? (
                     <>
-                      Next Question
+                      {t("quiz.nextQuestion")}
                       <ChevronRight className="h-4 w-4" />
                     </>
                   ) : (
-                    "See Results"
+                    t("quiz.seeResults")
                   )}
                 </Button>
               )}

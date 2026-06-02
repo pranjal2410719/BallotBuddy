@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { electionMyths } from "@/lib/election-data";
 import { RotateCcw, AlertTriangle, CheckCircle } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 export default function MythsPage() {
+  const { t } = useLanguage();
   const [revealedCards, setRevealedCards] = useState<Set<number>>(new Set());
   const [showAll, setShowAll] = useState(false);
 
@@ -43,11 +45,10 @@ export default function MythsPage() {
         className="text-center mb-12"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          🔍 Election Myth Buster
+          {t("myths.title")}
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Don&apos;t fall for misinformation! Tap each card to reveal the truth behind
-          common election myths.
+          {t("myths.subtitle")}
         </p>
         <Button
           onClick={revealAll}
@@ -57,12 +58,12 @@ export default function MythsPage() {
           {showAll ? (
             <>
               <RotateCcw className="h-4 w-4" />
-              Hide All Facts
+              {t("myths.hideAll")}
             </>
           ) : (
             <>
               <CheckCircle className="h-4 w-4" />
-              Reveal All Facts
+              {t("myths.revealAll")}
             </>
           )}
         </Button>
@@ -101,7 +102,7 @@ export default function MythsPage() {
                           variant="outline"
                           className="bg-red-50 text-red-700 border-red-200 dark:bg-red-950/50 dark:text-red-400 mb-2"
                         >
-                          ❌ Myth
+                          ❌ {t("myths.myth")}
                         </Badge>
                         <p className="font-semibold text-sm leading-relaxed">
                           &ldquo;{myth.myth}&rdquo;
@@ -129,7 +130,7 @@ export default function MythsPage() {
                                   variant="outline"
                                   className="bg-green-50 text-green-700 border-green-200 dark:bg-green-950/50 dark:text-green-400 mb-2"
                                 >
-                                  ✅ Fact
+                                  ✅ {t("myths.fact")}
                                 </Badge>
                                 <p className="text-sm leading-relaxed text-muted-foreground">
                                   {myth.fact}
@@ -144,7 +145,7 @@ export default function MythsPage() {
                     {/* Tap hint */}
                     {!isRevealed && (
                       <p className="text-xs text-muted-foreground mt-4 text-center">
-                        👆 Tap to reveal the truth
+                        {t("myths.tapHint")}
                       </p>
                     )}
                   </CardContent>
@@ -167,7 +168,7 @@ export default function MythsPage() {
             <div className="flex items-center justify-center gap-2 mb-2">
               <CheckCircle className="h-5 w-5 text-green-600" />
               <span className="font-semibold">
-                {revealedCards.size} of {electionMyths.length} myths busted
+                {revealedCards.size} {t("eligibility.of")} {electionMyths.length} {t("myths.busted")}
               </span>
             </div>
             <div className="h-2 rounded-full bg-muted overflow-hidden max-w-xs mx-auto">

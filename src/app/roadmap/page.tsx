@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useLanguage } from "@/lib/language-context";
 import {
   CheckCircle,
   XCircle,
@@ -94,6 +95,7 @@ function generateRoadmap(profile: UserProfile): RoadmapResult {
 }
 
 export default function RoadmapPage() {
+  const { t } = useLanguage();
   const [profile, setProfile] = useState<UserProfile>({
     name: "",
     age: "",
@@ -125,10 +127,10 @@ export default function RoadmapPage() {
         className="text-center mb-8"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          🗺️ My Voting Roadmap
+          {t("roadmap.title")}
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Get a personalized election roadmap based on your profile.
+          {t("roadmap.subtitle")}
         </p>
       </motion.div>
 
@@ -167,7 +169,7 @@ export default function RoadmapPage() {
                     ) : (
                       <XCircle className="h-8 w-8 mx-auto text-red-600 mb-2" />
                     )}
-                    <p className="text-sm font-medium">Eligibility</p>
+                    <p className="text-sm font-medium">{t("roadmap.eligible")}</p>
                     <p className={`text-xs ${result.isEligible ? "text-green-600" : "text-red-600"}`}>
                       {result.isEligible ? "Eligible ✓" : "Not Eligible (Under 18)"}
                     </p>
@@ -183,7 +185,7 @@ export default function RoadmapPage() {
                     ) : (
                       <AlertCircle className="h-8 w-8 mx-auto text-yellow-600 mb-2" />
                     )}
-                    <p className="text-sm font-medium">Registration</p>
+                    <p className="text-sm font-medium">{t("roadmap.registration")}</p>
                     <p className={`text-xs ${result.isRegistered ? "text-green-600" : "text-yellow-600"}`}>
                       {result.isRegistered ? "Registered ✓" : "Not Registered"}
                     </p>
@@ -210,13 +212,13 @@ export default function RoadmapPage() {
                 {result.isEligible && result.estimatedTime > 0 && (
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="h-4 w-4" />
-                    <span>Estimated time to complete: <strong>~{result.estimatedTime} minutes</strong></span>
+                    <span>{t("roadmap.estimated")}: <strong>~{result.estimatedTime} {t("roadmap.minutes")}</strong></span>
                   </div>
                 )}
 
                 {/* Steps */}
                 <div>
-                  <h3 className="font-semibold text-sm mb-3">Your Next Steps</h3>
+                  <h3 className="font-semibold text-sm mb-3">{t("roadmap.nextSteps")}</h3>
                   <div className="space-y-2">
                     {result.steps.map((step, i) => (
                       <div
@@ -240,7 +242,7 @@ export default function RoadmapPage() {
 
                 <Button onClick={handleReset} variant="outline" className="w-full gap-2">
                   <RotateCcw className="h-4 w-4" />
-                  Start Over
+                  {t("roadmap.reset")}
                 </Button>
               </CardContent>
             </Card>
@@ -261,7 +263,7 @@ export default function RoadmapPage() {
                 <div className="space-y-2">
                   <Label htmlFor="name" className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    Your Name
+                    {t("roadmap.name")}
                   </Label>
                   <Input
                     id="name"
@@ -275,7 +277,7 @@ export default function RoadmapPage() {
                 <div className="space-y-2">
                   <Label htmlFor="age" className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
-                    Your Age
+                    {t("roadmap.age")}
                   </Label>
                   <Input
                     id="age"
@@ -292,7 +294,7 @@ export default function RoadmapPage() {
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
-                    Your State
+                    {t("roadmap.state")}
                   </Label>
                   <select
                     value={profile.state}
@@ -308,7 +310,7 @@ export default function RoadmapPage() {
 
                 {/* Registered */}
                 <div className="space-y-2">
-                  <Label>Already registered to vote?</Label>
+                  <Label>{t("roadmap.registered")}</Label>
                   <RadioGroup
                     value={profile.registered}
                     onValueChange={(val: string) => setProfile((p) => ({ ...p, registered: val }))}
@@ -331,7 +333,7 @@ export default function RoadmapPage() {
 
                 {/* Has ID */}
                 <div className="space-y-2">
-                  <Label>Do you have a Voter ID?</Label>
+                  <Label>{t("roadmap.hasId")}</Label>
                   <RadioGroup
                     value={profile.hasId}
                     onValueChange={(val: string) => setProfile((p) => ({ ...p, hasId: val }))}
@@ -353,7 +355,7 @@ export default function RoadmapPage() {
                   disabled={!isFormComplete}
                   className="w-full gap-2"
                 >
-                  Generate My Roadmap
+                  {t("roadmap.generate")}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </CardContent>

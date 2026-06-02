@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { timelineEvents } from "@/lib/election-data";
+import { useLanguage } from "@/lib/language-context";
 import {
   Calendar,
   UserCheck,
@@ -42,6 +43,7 @@ const categoryDotColors: Record<string, string> = {
 };
 
 export default function TimelinePage() {
+  const { language, t } = useLanguage();
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [filter, setFilter] = useState<string>("all");
 
@@ -49,6 +51,17 @@ export default function TimelinePage() {
     filter === "all"
       ? timelineEvents
       : timelineEvents.filter((e) => e.category === filter);
+
+  const getCategoryLabel = (cat: string) => {
+    const mapping: Record<string, { en: string; hi: string }> = {
+      registration: { en: "Register", hi: "पंजीकरण" },
+      nomination: { en: "Nominate", hi: "नामांकन" },
+      campaign: { en: "Campaign", hi: "अभियान" },
+      voting: { en: "Voting", hi: "मतदान" },
+      results: { en: "Results", hi: "परिणाम" },
+    };
+    return language === "hi" ? (mapping[cat]?.hi || cat) : (mapping[cat]?.en || cat);
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -59,22 +72,22 @@ export default function TimelinePage() {
         className="text-center mb-12"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          📅 Election Timeline
+          {t("timeline.title")}
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Visualize election stages, deadlines, and important milestones.
+          {t("timeline.subtitle")}
         </p>
       </motion.div>
 
       {/* Filter Tabs */}
       <Tabs value={filter} onValueChange={setFilter} className="mb-8">
         <TabsList className="grid w-full grid-cols-3 sm:grid-cols-6 h-auto">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="registration">Register</TabsTrigger>
-          <TabsTrigger value="nomination">Nominate</TabsTrigger>
-          <TabsTrigger value="campaign">Campaign</TabsTrigger>
-          <TabsTrigger value="voting">Voting</TabsTrigger>
-          <TabsTrigger value="results">Results</TabsTrigger>
+          <TabsTrigger value="all">{t("timeline.all")}</TabsTrigger>
+          <TabsTrigger value="registration">{language === "hi" ? "पंजीकरण" : "Register"}</TabsTrigger>
+          <TabsTrigger value="nomination">{language === "hi" ? "नामांकन" : "Nominate"}</TabsTrigger>
+          <TabsTrigger value="campaign">{language === "hi" ? "अभियान" : "Campaign"}</TabsTrigger>
+          <TabsTrigger value="voting">{language === "hi" ? "मतदान" : "Voting"}</TabsTrigger>
+          <TabsTrigger value="results">{language === "hi" ? "परिणाम" : "Results"}</TabsTrigger>
         </TabsList>
       </Tabs>
 
@@ -112,7 +125,7 @@ export default function TimelinePage() {
                         className={`${categoryColors[event.category]} shrink-0`}
                       >
                         <span className="mr-1">{categoryIcons[event.category]}</span>
-                        {event.category}
+                        {getCategoryLabel(event.category)}
                       </Badge>
                       <div>
                         <CardTitle className="text-base">{event.title}</CardTitle>
@@ -150,7 +163,7 @@ export default function TimelinePage() {
       {/* Legend */}
       <Card className="mt-12">
         <CardHeader>
-          <CardTitle className="text-sm">Legend</CardTitle>
+          <CardTitle className="text-sm">{t("timeline.legend")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-4">
@@ -158,7 +171,7 @@ export default function TimelinePage() {
               <div key={category} className="flex items-center gap-2">
                 <div className={`h-3 w-3 rounded-full ${color}`} />
                 <span className="text-sm capitalize text-muted-foreground">
-                  {category}
+                  {getCategoryLabel(category)}
                 </span>
               </div>
             ))}

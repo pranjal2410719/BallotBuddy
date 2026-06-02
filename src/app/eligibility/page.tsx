@@ -9,10 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { eligibilityQuestions } from "@/lib/election-data";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle, RotateCcw } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
 
 type ResultType = "eligible" | "not-eligible" | "needs-registration" | "needs-id";
 
 export default function EligibilityPage() {
+  const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<ResultType | null>(null);
@@ -119,10 +121,10 @@ export default function EligibilityPage() {
         className="text-center mb-8"
       >
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          ✅ Eligibility Checker
+          {t("eligibility.title")}
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Answer a few questions to check if you&apos;re eligible to vote and get personalized next steps.
+          {t("eligibility.subtitle")}
         </p>
       </motion.div>
 
@@ -160,7 +162,7 @@ export default function EligibilityPage() {
                   </div>
                   <Button onClick={handleReset} variant="outline" className="mt-6 gap-2">
                     <RotateCcw className="h-4 w-4" />
-                    Start Over
+                    {t("eligibility.startOver")}
                   </Button>
                 </div>
               </CardContent>
@@ -178,7 +180,7 @@ export default function EligibilityPage() {
             <div className="mb-6">
               <div className="flex justify-between text-sm text-muted-foreground mb-2">
                 <span>
-                  Question {currentStep + 1} of {eligibilityQuestions.length}
+                  {t("eligibility.question")} {currentStep + 1} {t("eligibility.of")} {eligibilityQuestions.length}
                 </span>
                 <span>{Math.round(progress)}%</span>
               </div>
@@ -225,14 +227,14 @@ export default function EligibilityPage() {
                     className="gap-2"
                   >
                     <ArrowLeft className="h-4 w-4" />
-                    Back
+                    {t("eligibility.back")}
                   </Button>
                   <Button
                     onClick={handleNext}
                     disabled={!selectedValue}
                     className="gap-2"
                   >
-                    {currentStep === eligibilityQuestions.length - 1 ? "Check Result" : "Next"}
+                    {currentStep === eligibilityQuestions.length - 1 ? t("eligibility.check") : t("eligibility.next")}
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
